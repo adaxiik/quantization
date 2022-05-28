@@ -159,3 +159,22 @@ void DestroyImage(Image **image)
     *image = NULL;
 }
 
+Image *Scale(Image *image, float scale)
+{
+    Image *scaled = (Image *)malloc(sizeof(Image));
+    scaled->width = (int)(image->width * scale);
+    scaled->height = (int)(image->height * scale);
+    scaled->pixels = malloc(scaled->width * scaled->height * sizeof(Pixel));
+    Pixel *pixels = scaled->pixels;
+    for (int y = 0; y < scaled->height; y++)
+    {
+        for (int x = 0; x < scaled->width; x++)
+        {
+            int x_src = (int)(x / scale);
+            int y_src = (int)(y / scale);
+            pixels[y * scaled->width + x] = image->pixels[y_src * image->width + x_src];
+        }
+    }
+    DestroyImage(&image);
+    return scaled;
+}

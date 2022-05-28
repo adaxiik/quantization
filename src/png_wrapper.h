@@ -21,7 +21,13 @@ void WritePNG(const char *filename, Image *image);
 
 Image *ReadPNG(const char *filename);
 
+Image* Scale(Image* image, float scale);
+
+
 void DestroyImage(Image **image);
+
+
+
 
 inline uint8_t Clamp(double x)
 {
