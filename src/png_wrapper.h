@@ -23,6 +23,9 @@ Image *ReadPNG(const char *filename);
 
 Image* Scale(Image* image, float scale);
 
+Image* DownScaleSoft(Image* image);
+
+void ConvertToGrayscale(Image* image);
 
 void DestroyImage(Image **image);
 

@@ -1,10 +1,3 @@
-// const palette = [
-//     [103, 51, 11],
-//     [22, 22, 19],
-//     [53, 57, 45],
-//     [0, 103, 2],
-//     [100, 89, 16]
-// ]
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -74,28 +67,28 @@ void Dither(Image *image, Palette* palette)
 int main(int argc, char const *argv[])
 {
     srand(time(NULL));
-    Image *image = ReadPNG("car.png");
+    Image *image = ReadPNG("examples/car.png");
 
-    // Pixel colors[] = {
-    //     {22, 23, 23},
-    //     {5, 105, 3},
-    //     {108, 106, 106},
-    //     {122, 15, 14},
-    //     {188, 190, 57}
-    // };
     Pixel colors[] = {
-        {255, 255, 255},
-        {0, 0, 0}
+        {22, 23, 23},
+        {5, 105, 3},
+        {108, 106, 106},
+        {122, 15, 14},
+        {188, 190, 57}
     };
+    // Pixel colors[] = {
+    //     {255, 255, 255},
+    //     {0, 0, 0}
+    // };
 
     Palette *palette = CreatePalette(colors, sizeof(colors) / sizeof(Pixel));
     //Palette *palette = CreatePaletteFromImageRandom(image, 64);
-    //Quantize(image, palette);
+
     image = Scale(image, 0.25);
     Dither(image, palette);
     image = Scale(image, 4.0);
     
-    WritePNG("out.png", image);
+    WritePNG("examples/out.png", image);
     DestroyPalette(&palette);
     DestroyImage(&image);
     return 0;

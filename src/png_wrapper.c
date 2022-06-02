@@ -178,3 +178,49 @@ Image *Scale(Image *image, float scale)
     DestroyImage(&image);
     return scaled;
 }
+
+Image *DownScaleSoft(Image *image)
+{
+    Image *scaled = (Image *)malloc(sizeof(Image));
+    scaled->width = (int)(image->width / 2);
+    scaled->height = (int)(image->height / 2);
+    scaled->pixels = malloc(scaled->width * scaled->height * sizeof(Pixel));
+    Pixel *pixels = scaled->pixels;
+    for (int y = 0; y < scaled->height; y++)
+    {
+        for (int x = 0; x < scaled->width; x++)
+        {
+            uint32_t red = 0, green = 0, blue = 0;
+            for (int y_src = 0; y_src < 2; y_src++)
+            {
+                for (int x_src = 0; x_src < 2; x_src++)
+                {
+                    red += image->pixels[(y * 2 + y_src) * image->width + (x * 2 + x_src)].red;
+                    green += image->pixels[(y * 2 + y_src) * image->width + (x * 2 + x_src)].green;
+                    blue += image->pixels[(y * 2 + y_src) * image->width + (x * 2 + x_src)].blue;
+                }
+            }
+            pixels[y * scaled->width + x] = (Pixel){red / 4, green / 4, blue / 4};
+
+        }
+    }
+    DestroyImage(&image);
+    return scaled;
+}
+
+void ConvertToGrayscale(Image *image)
+{
+    const uint32_t width = image->width;
+    const uint32_t height = image->height;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            uint32_t red = image->pixels[y * width + x].red;
+            uint32_t green = image->pixels[y * width + x].green;
+            uint32_t blue = image->pixels[y * width + x].blue;
+            uint32_t gray = (red + green + blue) / 3;
+            image->pixels[y * width + x] = (Pixel){gray, gray, gray};
+        }
+    }
+}
