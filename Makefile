@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Ofast -std=c99 -march=native -mtune=generic
+CFLAGS = -Wall -g -O2 -std=c99 -march=native -mtune=generic
 LIBS = -lm -lpng -fopenmp
 
 main: src/*.c

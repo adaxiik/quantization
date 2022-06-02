@@ -9,7 +9,7 @@ Not even usable from terminal..
 Original image:
 ![Original](examples/car.png)
 
-Downscaled 4x, dithered and upscaled back:
+Downscaled 4x, dithered using 5 colors and upscaled back:
 ![Dithered](examples/out.png)
 
 
